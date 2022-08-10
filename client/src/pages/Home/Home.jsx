@@ -1,28 +1,34 @@
 import React from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Login from "../../components/Login/Login";
-import {
-  selectCurrentToken,
-  selectCurrentUser,
-} from "../../features/auth/authSlice";
 
+import { useGetProductsMutation } from "../../features/products/productsApiSlice";
+import { selectProducts } from "../../features/products/productsSlice";
 const Home = () => {
-  const user = useSelector(selectCurrentUser);
-  const currentToken = useSelector(selectCurrentToken);
+  const [getProducts] = useGetProductsMutation();
+  const products = useSelector(selectProducts);
 
-  const welcome = user ? `Welcome ${user.name}!` : "Welcome!";
-  const tokenAbbr = `${currentToken?.slice(0, 9)}...`;
+  console.log("====products", products);
 
-  const content = !currentToken ? (
-    <div>
-      <Login />
-    </div>
-  ) : (
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
+
+  const content = (
     <section>
-      <h1>{welcome}</h1>
-      <p>Token: {tokenAbbr}</p>
-      <Link to="/grid">Grid</Link>
+      <h1>Bienvenido a la mejor tienda de cultivo del país.</h1>
+      <br />
+      {products &&
+        products.map((product) => {
+          return (
+            <div key={product.id}>
+              <h3>{product.name}</h3>
+              <p>{product.description}</p>
+              <p>$ {product.price}</p>
+              <img src={product.image} alt="" width={"180px"} />
+            </div>
+          );
+        })}
     </section>
   );
 

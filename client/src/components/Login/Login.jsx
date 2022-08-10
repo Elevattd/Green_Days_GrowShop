@@ -24,11 +24,8 @@ const Login = () => {
   }, []);
 
   const handleLogin = async (credentials) => {
-    console.log("====credentialsLogin====", credentials);
     try {
-      console.log("====credentialsLogin dentro del try====", credentials);
       const userData = await login(credentials).unwrap();
-      console.log("====userData====", userData);
       dispatch(setCredentials({ ...userData }));
       setEmail("");
       setPassword("");
