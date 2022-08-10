@@ -31,9 +31,9 @@ Usuario:
 
 Administrador:
 
--Crear nuevos productos para ponerlos en la venta.
--Controlar stock.
--Agregar ventas diarias.
+- Crear nuevos productos para ponerlos en la venta.
+- Controlar stock.
+- Agregar ventas diarias.
 
 ##### Contacto:
 
